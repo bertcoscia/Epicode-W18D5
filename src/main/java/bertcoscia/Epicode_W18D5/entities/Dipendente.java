@@ -17,9 +17,13 @@ public class Dipendente {
     @Setter(AccessLevel.NONE)
     @Column(name = "id")
     private UUID idDipendente;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String cognome;
+    @Column(nullable = false)
     private String email;
 
     public Dipendente(String username, String nome, String cognome, String email) {

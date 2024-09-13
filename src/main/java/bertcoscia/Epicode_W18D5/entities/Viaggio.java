@@ -19,9 +19,12 @@ public class Viaggio {
     @Setter(AccessLevel.NONE)
     @Column(name = "id")
     private UUID idViaggio;
+    @Column(nullable = false)
     private String destinazione;
+    @Column(nullable = false)
     private LocalDate data;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ViaggioStato stato;
 
     public Viaggio(String destinazione, LocalDate data, ViaggioStato stato) {
