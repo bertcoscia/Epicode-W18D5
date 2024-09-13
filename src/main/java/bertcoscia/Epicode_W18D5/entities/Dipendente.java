@@ -25,6 +25,8 @@ public class Dipendente {
     private String cognome;
     @Column(nullable = false)
     private String email;
+    @Column(name = "url_avatar")
+    private String urlAvatar;
 
     public Dipendente(String username, String nome, String cognome, String email) {
         this.username = username;
