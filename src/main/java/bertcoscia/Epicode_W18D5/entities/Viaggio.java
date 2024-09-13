@@ -10,7 +10,6 @@ import java.util.UUID;
 @Entity
 @Table(name = "viaggi")
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -24,4 +23,10 @@ public class Viaggio {
     private LocalDate data;
     @Enumerated(EnumType.STRING)
     private ViaggioStato stato;
+
+    public Viaggio(String destinazione, LocalDate data, ViaggioStato stato) {
+        this.destinazione = destinazione;
+        this.data = data;
+        this.stato = stato;
+    }
 }
