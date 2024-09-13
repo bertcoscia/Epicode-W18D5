@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/dipendenti")
 public class DipendentiController {
     @Autowired
-    private DipendentiService dipendentiService;
+    private DipendentiService service;
 
     // GET http://localhost:3001/dipendenti
     @GetMapping
@@ -30,13 +30,13 @@ public class DipendentiController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") String sortBy) {
-        return this.dipendentiService.findAll(page, size, sortBy);
+        return this.service.findAll(page, size, sortBy);
     }
 
     // GET http://localhost:3001/dipendenti/{idDipendente}
     @GetMapping("/{idDipendente}")
     public Dipendente findById(@PathVariable UUID idDipendente) {
-        return this.dipendentiService.findById(idDipendente);
+        return this.service.findById(idDipendente);
     }
 
     // POST http://localhost:3001/dipendenti + body
@@ -49,27 +49,27 @@ public class DipendentiController {
                     .collect(Collectors.joining(". "));
             throw new BadRequestException(messages);
         } else {
-            return new NewDipendenteRespDTO(this.dipendentiService.save(body).getIdDipendente());
+            return new NewDipendenteRespDTO(this.service.save(body).getIdDipendente());
         }
     }
 
     // PUT http://localhost:3001/dipendenti/{idDipendente} + body
     @PutMapping("/{idDipendente}")
     public Dipendente findByIdAndUpdate(@PathVariable UUID idDipendente, @RequestBody Dipendente body) {
-        return this.dipendentiService.findByIdAndUpdate(idDipendente, body);
+        return this.service.findByIdAndUpdate(idDipendente, body);
     }
 
     // DELETE http://localhost:3001/dipendenti/{idDipendente}
     @DeleteMapping("/{idDipendente}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable UUID idDipendente) {
-        this.dipendentiService.findByIdAndDelete(idDipendente);
+        this.service.findByIdAndDelete(idDipendente);
     }
 
     // POST http://localhost:3001/dipendenti/{idDipendente}/avatar
     @PostMapping("/{idDipendente}/avatar")
     public void uploadImage(@RequestParam("avatar") MultipartFile image, @PathVariable UUID idDipendente) throws IOException {
-        this.dipendentiService.uploadImage(image, idDipendente);
+        this.service.uploadImage(image, idDipendente);
     }
 
 

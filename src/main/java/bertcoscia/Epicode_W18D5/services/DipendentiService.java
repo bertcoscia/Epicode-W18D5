@@ -22,7 +22,7 @@ public class DipendentiService {
     private DipendentiRepository dipendentiRepository;
 
     @Autowired
-    private Cloudinary cloudinaryUploader;
+    private Cloudinary cloudinary;
 
     public Dipendente save(NewDipendenteDTO body) {
         if (this.dipendentiRepository.existsByUsername(body.username())) throw new BadRequestException("Username già esistente");
@@ -60,7 +60,7 @@ public class DipendentiService {
 
     public void uploadImage(MultipartFile file, UUID idDipendente) throws IOException {
         Dipendente found = this.findById(idDipendente);
-        String url = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        String url = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
         found.setUrlAvatar(url);
         this.dipendentiRepository.save(found);
     }

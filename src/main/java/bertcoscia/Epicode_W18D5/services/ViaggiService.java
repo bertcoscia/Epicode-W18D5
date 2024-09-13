@@ -23,7 +23,7 @@ public class ViaggiService {
     private ViaggiRepository viaggiRepository;
 
     @Autowired
-    private Cloudinary cloudinaryUploader;
+    private Cloudinary cloudinary;
 
     public Viaggio save(NewViaggioDTO body) {
         if (this.viaggiRepository.existsByDestinazioneAndData(body.destinazione(), body.data())) throw new BadRequestException("Esiste già una viaggio con destinazione " + body.destinazione() + " per la data " + body.data());
@@ -64,7 +64,7 @@ public class ViaggiService {
 
     /*public void uploadImage(MultipartFile file, UUID idViaggio) throws IOException {
         Viaggio found = this.findById(idViaggio);
-        String url = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        String url = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
         found.setUrlCover(url);
         this.viaggiRepository.save(found);
     }*/
