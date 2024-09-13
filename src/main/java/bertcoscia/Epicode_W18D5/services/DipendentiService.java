@@ -5,6 +5,8 @@ import bertcoscia.Epicode_W18D5.exceptions.BadRequestException;
 import bertcoscia.Epicode_W18D5.exceptions.NotFoundException;
 import bertcoscia.Epicode_W18D5.payloads.NewDipendenteDTO;
 import bertcoscia.Epicode_W18D5.repositories.DipendentiRepository;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,9 @@ import java.util.UUID;
 public class DipendentiService {
     @Autowired
     private DipendentiRepository dipendentiRepository;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public Dipendente save(NewDipendenteDTO body) {
         if (this.dipendentiRepository.existsByUsername(body.username())) throw new BadRequestException("Username già esistente");
@@ -51,6 +56,13 @@ public class DipendentiService {
     public void findByIdAndDelete(UUID id) {
         Dipendente found = this.findById(id);
         this.dipendentiRepository.delete(found);
+    }
+
+    public void uploadImage(MultipartFile file, UUID idDipendente) throws IOException {
+        Dipendente found = this.findById(idDipendente);
+        String url = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        found.setUrlAvatar(url);
+        this.dipendentiRepository.save(found);
     }
 
 }
