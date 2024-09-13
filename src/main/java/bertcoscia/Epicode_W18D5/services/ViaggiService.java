@@ -64,6 +64,16 @@ public class ViaggiService {
         this.viaggiRepository.delete(found);
     }
 
+    public Viaggio changeViaggioStato(UUID id) {
+        Viaggio found = this.findById(id);
+        if (found.getStato().equals(ViaggioStato.IN_PROGRAMMA)) {
+            found.setStato(ViaggioStato.COMPLETATO);
+        } else {
+            found.setStato(ViaggioStato.IN_PROGRAMMA);
+        }
+        return this.viaggiRepository.save(found);
+    }
+
     /*public void uploadImage(MultipartFile file, UUID idViaggio) throws IOException {
         Viaggio found = this.findById(idViaggio);
         String url = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");

@@ -33,7 +33,7 @@ public class ViaggiController {
 
     // GET http://localhost:3001/viaggi/{idViaggio}
     @GetMapping("/{idViaggio}")
-    public Viaggio findById(@RequestParam UUID idViaggio) {
+    public Viaggio findById(@PathVariable UUID idViaggio) {
         return this.service.findById(idViaggio);
     }
 
@@ -62,6 +62,15 @@ public class ViaggiController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable UUID idViaggio) {
         this.service.findByIdAndDelete(idViaggio);
+    }
+
+    // PUT http://localhost:3001/viaggi/{idViaggio}
+    // ho deciso di passare come solo parametro l'id del viaggio in quanto lo stato ha solo
+    // due valori, quindi il metodo changeViaggioStato controlla attraverso un if il valore
+    // di stato e ne mette l'opposto, salvando il viaggio aggiornato nel db
+    @PutMapping("/{idViaggio}/stato")
+    public Viaggio changeViaggioStato(@PathVariable UUID idViaggio) {
+        return this.service.changeViaggioStato(idViaggio);
     }
 
 
