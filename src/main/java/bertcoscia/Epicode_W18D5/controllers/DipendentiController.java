@@ -29,7 +29,7 @@ public class DipendentiController {
     public Page<Dipendente> findAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "cognome") String sortBy) {
         return this.service.findAll(page, size, sortBy);
     }
 

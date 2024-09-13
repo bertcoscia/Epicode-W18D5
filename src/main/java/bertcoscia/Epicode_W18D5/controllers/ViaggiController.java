@@ -27,7 +27,7 @@ public class ViaggiController {
     public Page<Viaggio> findAll(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy) {
+            @RequestParam(defaultValue = "data") String sortBy) {
         return this.service.findAll(page, size, sortBy);
     }
 
@@ -63,6 +63,6 @@ public class ViaggiController {
     public void findByIdAndDelete(@PathVariable UUID idViaggio) {
         this.service.findByIdAndDelete(idViaggio);
     }
-    
+
 
 }
