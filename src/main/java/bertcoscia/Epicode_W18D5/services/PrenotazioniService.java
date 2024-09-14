@@ -65,13 +65,13 @@ public class PrenotazioniService {
         this.repository.delete(found);
     }
 
-    /*public Prenotazione changeDipendente(UUID idPrenotazione, UUID idDipendente) {
+    public Prenotazione changeDipendente(UUID idPrenotazione, ChangeDipendenteDTO body) {
         Prenotazione pFound = this.findById(idPrenotazione);
-        Dipendente dFound = this.dipendentiService.findById(idDipendente);
+        Dipendente dFound = this.dipendentiService.findById(body.idDipendente());
         if (this.repository.existsByDipendenteAndViaggioData(dFound, pFound.getViaggio().getData())) throw new BadRequestException("L'utente " + dFound.getNome() + dFound.getCognome() + " ha già una prenotazione per la data " + pFound.getViaggio().getData());
         pFound.setDipendente(dFound);
         pFound.setDataPrenotazione(LocalDate.now());
         return this.repository.save(pFound);
-    }*/
+    }
 
 }

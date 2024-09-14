@@ -3,6 +3,7 @@ package bertcoscia.Epicode_W18D5.controllers;
 import bertcoscia.Epicode_W18D5.entities.Prenotazione;
 import bertcoscia.Epicode_W18D5.exceptions.BadRequestException;
 import bertcoscia.Epicode_W18D5.payloads.ChangeDipendenteDTO;
+import bertcoscia.Epicode_W18D5.payloads.ChangeDipendenteRespDTO;
 import bertcoscia.Epicode_W18D5.payloads.NewPrenotazioneDTO;
 import bertcoscia.Epicode_W18D5.payloads.NewPrenotazioneRespDTO;
 import bertcoscia.Epicode_W18D5.services.PrenotazioniService;
@@ -65,9 +66,9 @@ public class PrenotazioniController {
         this.service.findByIdAndDelete(idPrenotazione);
     }
 
-    /*// PUT http://localhost:3001/prenotazioni/{idPrenotazione}/{idDipendente}
-    @PutMapping("/{idPrenotazione}/{idDipendente}")
-    public Prenotazione changeDipendente(@PathVariable UUID idPrenotazione, @PathVariable UUID idDipendente, @RequestBody ChangeDipendenteDTO body) {
-        return this.service.changeDipendente(idPrenotazione, idDipendente);
-    }*/
+    // PATCH http://localhost:3001/prenotazioni/{idPrenotazione}/cambio-dipendente
+    @PatchMapping("/{idPrenotazione}/cambio-dipendente")
+    public ChangeDipendenteRespDTO changeDipendente(@PathVariable UUID idPrenotazione, @RequestBody @Validated ChangeDipendenteDTO body) {
+        return new ChangeDipendenteRespDTO(this.service.changeDipendente(idPrenotazione, body).getDipendente().getIdDipendente());
+    }
 }
